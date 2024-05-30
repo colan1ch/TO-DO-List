@@ -1,5 +1,6 @@
 #include "Widgets.h"
 
+DataFile *DataFile::data = nullptr;
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(800, 600), "TO-DO List");
@@ -13,26 +14,14 @@ int main() {
     Button add_task_btn("Add new task:", {100, 30}, 12, sf::Color::Green, sf::Color::Blue, font);
     add_task_btn.setPosition({250, 10});
 
-    CheckBox check_box1({30, 30}, sf::Color::Green);
-    check_box1.setPosition({10, 40});
     std::vector<CheckBox> checkboxes;
-    checkboxes.push_back(check_box1);
-
-    TextBox task1(20, sf::Color::Yellow, true, font);
-    task1.setPosition({120, 40});
     std::vector<TextBox> textboxes;
     int cur_tbox = 0;
-    textboxes.push_back(task1);
-
-    Button ok_btn1("OK", {30, 30}, 12, sf::Color::Green, sf::Color::Blue, font);
-    ok_btn1.setPosition({90, 40});
     std::vector<Button> ok_buttons;
-    ok_buttons.push_back(ok_btn1);
-
-    Button del_btn1("Del", {30, 30}, 12, sf::Color::Green, sf::Color::Blue, font);
-    del_btn1.setPosition({50, 40});
     std::vector<Button> del_buttons;
-    del_buttons.push_back(del_btn1);
+
+    DataFile::init("../files/data.txt");
+    DataFile::readDB(checkboxes, textboxes, cur_tbox, ok_buttons, del_buttons, font);
 
     while (window.isOpen()) {
         sf::Event event;
@@ -177,5 +166,6 @@ int main() {
         add_task_btn.drawTo(window);
         window.display();
     }
+    DataFile::writeDB(checkboxes, textboxes);
     return 0;
 }

@@ -17,7 +17,7 @@ file(GLOB_RECURSE SOURCES "src/*.cpp")
 file(GLOB_RECURSE HEADERS "include/*.h")
 include_directories(include)
 
-file(GLOB FILES "files/*.png" "files/*.ttf")
+file(GLOB FILES "files/*.png" "files/*.ttf" "files/*.txt")
 file(COPY ${FILES} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/files)
 
 add_executable(TO-DO-List ${SOURCES} ${HEADERS})
